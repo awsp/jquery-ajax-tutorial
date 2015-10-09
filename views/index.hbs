@@ -38,7 +38,7 @@
 
         // AJAX request succeeded
         var successHandler = function (users) {
-          // Simulate network traffic, show data after 1 seconds
+          // Simulate network traffic, show data after 1 second.
           setTimeout(function () {
             $userList.html(generateTemplate(users));
           }, 1000);
