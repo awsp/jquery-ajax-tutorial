@@ -38,10 +38,10 @@
 
         // AJAX request succeeded
         var successHandler = function (users) {
-          // Simulate network traffic, show data after 2 seconds
+          // Simulate network traffic, show data after 1 seconds
           setTimeout(function () {
             $userList.html(generateTemplate(users));
-          }, 2000);
+          }, 1000);
         };
 
         // AJAX request failed
@@ -72,6 +72,9 @@
           // Being lazy here, use closure directly. :P
           request.then(function (response) {
             if (response) {
+              // Clear user input
+              $userInput.val("");
+
               // A dump way, should be using library like Facebook React to append the data instead,
               // but for now, let's just refresh the whole list.
               loadUsers();
