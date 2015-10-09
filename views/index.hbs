@@ -1,0 +1,86 @@
+<h1>{{title}}</h1>
+<p>Welcome to {{title}}</p>
+<hr>
+<h3>User List</h3>
+<ul id="users-list"></ul>
+
+<form action="/users" method="POST" id="user-form">
+  <section>
+    <label for="user-input">Add new username: </label>
+    <input type="text" name="username" id="user-input" />
+    <input type="submit" value="Add" />
+  </section>
+</form>
+
+<script type="text/javascript">
+  (function ($) {
+    $(function () {
+      // Save reference to #users-list as DOM manipulation is expensive
+      var $userList = $("#users-list"),
+          $userInput = $("#user-input"),
+          request;
+
+      var loadUsers = function () {
+        // Loading message
+        $userList.html('Loading ...');
+
+        // Fire off AJAX request
+        var users = $.get('/users/');
+
+        // Generate template
+        var generateTemplate = function (users) {
+          var html = '';
+          users.forEach(function (user) {
+            html += '<li>' + user.username + '</li>';
+          });
+          return html;
+        };
+
+        // AJAX request succeeded
+        var successHandler = function (users) {
+          // Simulate network traffic, show data after 2 seconds
+          setTimeout(function () {
+            $userList.html(generateTemplate(users));
+          }, 2000);
+        };
+
+        // AJAX request failed
+        var failHandler = function (a, b, c) {
+          console.log(a, b, c);
+        };
+
+        users.then(successHandler, failHandler);
+      };
+
+      // Initially start to load users
+      loadUsers();
+
+      // Form Submission
+      $("body").on("submit", "#user-form", function (e) {
+        // Prevent form submission
+        e.preventDefault();
+
+        var userInputValue = $userInput.val();
+        if (userInputValue != "") {
+          request = $.ajax({
+            method: "POST",
+            url: "/users",
+            data: { username: userInputValue },
+            dataType: "json"
+          });
+
+          // Being lazy here, use closure directly. :P
+          request.then(function (response) {
+            if (response) {
+              // A dump way, should be using library like Facebook React to append the data instead,
+              // but for now, let's just refresh the whole list.
+              loadUsers();
+            }
+          }, function () {
+            alert("Something is wrong! ");
+          });
+        }
+      });
+    });
+  })(jQuery);
+</script>

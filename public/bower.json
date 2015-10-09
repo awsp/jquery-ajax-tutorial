@@ -1,0 +1,25 @@
+{
+  "name": "jquery_ajax_tutorial",
+  "version": "1.0.0",
+  "authors": [
+    "awsp <anthonyspwu@gmail.com>"
+  ],
+  "description": "jQuery AJAX tutorial",
+  "keywords": [
+    "jQuery",
+    "AJAX",
+    "Node.js",
+    "Express.js"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
