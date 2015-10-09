@@ -20,4 +20,4 @@ cd ..
 # Executing
 npm start
 ```
-- Access http://localhost:8080 on your browser
+- Access http://localhost:8080 in your browser
